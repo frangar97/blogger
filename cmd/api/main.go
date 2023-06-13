@@ -14,7 +14,9 @@ import (
 func main() {
 	mux := chi.NewRouter()
 
+	mux.Use(middleware.Heartbeat("/ping"))
 	mux.Use(middleware.Recoverer)
+	mux.Use(handleCors)
 
 	mux.Mount("/swagger", httpSwagger.WrapHandler)
 
