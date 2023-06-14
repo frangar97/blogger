@@ -7,4 +7,10 @@ dev: apidocs
 	@echo Running on ${PORT}
 	@go run ./cmd/api
 
-.PHONY: apidocs dev
+migrateup:
+	migrate -path migrations -database ${POSTGRES_URL} -verbose up
+
+migratedown:
+	migrate -path migrations -database ${POSTGRES_URL} -verbose down
+
+.PHONY: apidocs dev migrateup migratedown
